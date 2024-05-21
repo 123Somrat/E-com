@@ -1,16 +1,8 @@
-import express, { Request, Response } from 'express';
-
+import express from 'express';
+import controllers from '../api/v1/product';
 const router = express.Router();
 
-router.route('/books').get((req: Request, res: Response) => {
-  res.status(200).json({
-    status: '200',
-    messege: 'all Books',
-    data: {
-      name: 'book',
-      price: 10,
-    },
-  });
-});
+router.route('/api/v1/products')
+.get(controllers.create);
 
 export default router;

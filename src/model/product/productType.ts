@@ -1,12 +1,13 @@
 type Variants = { type: string; value: string }[];
 type Inventory = { quantity: number; inStock: boolean };
-type Category = { type: string; tags: string[] };
+type Tags = { tags: string[] };
 
 interface Product {
   name: string;
   description: string;
   price: number;
-  category: Category;
+  category: string;
+  tags: Tags;
   variants: Variants;
   inventory: Inventory;
 }
