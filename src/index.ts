@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 const main = async () => {
   try {
-     await connectWithDB()
+    await connectWithDB();
     server.listen(port, async () => {
       console.log(`Express server is listening at http://localhost:${port}`);
     });

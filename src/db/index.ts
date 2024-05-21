@@ -1,3 +1,3 @@
-import connectWithDB from "./connectDB";
+import connectWithDB from './connectDB';
 
 export default connectWithDB;
