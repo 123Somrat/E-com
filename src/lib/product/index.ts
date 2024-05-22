@@ -7,4 +7,9 @@ const createProduct = async (data: Product) => {
   return product;
 };
 
-export = { createProduct };
+const getProduct = async () => {
+  const allProducts = await ProductModel.find({});
+  return allProducts;
+};
+
+export = { createProduct, getProduct };
