@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import prductService from '../../../../lib/product';
-const getAllProducts = async (req: Request, res: Response) => {
+const getAllProducts = async (_req: Request, res: Response) => {
   try {
     // Call the getproduct service
     const products = await prductService.getProduct();
