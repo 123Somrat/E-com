@@ -16,11 +16,11 @@ const VarientSchema = new Schema({
 const InventorySchema = new Schema({
   quantity: {
     type: Number,
-    required: [true,"Quantity is required"],
+    required: [true, 'Quantity is required'],
   },
   inStock: {
     type: Boolean,
-    required: [true,'Instock is required'],
+    required: [true, 'Instock is required'],
   },
 });
 
@@ -28,25 +28,25 @@ const InventorySchema = new Schema({
 const Product = new Schema<Product>({
   name: {
     type: String,
-    required: [true,"Name is required"],
-    minlength:[5,'Must be 5 or more cherecters long']
+    required: [true, 'Name is required'],
+    minlength: [5, 'Must be 5 or more cherecters long'],
   },
   description: {
     type: String,
-    required: [true,"Descroption is required"],
+    required: [true, 'Descroption is required'],
   },
   price: {
     type: Number,
-    required: [true,'Price is required'],
+    required: [true, 'Price is required'],
   },
   category: {
     type: String,
-    required:[true,'Category is required'],
+    required: [true, 'Category is required'],
   },
   tags: {
     type: String,
     enum: ['smartphone', 'Apple', 'iOS'],
-    required: [true,"Choose a tag"],
+    required: [true, 'Choose a tag'],
   },
   variants: {
     type: [VarientSchema],

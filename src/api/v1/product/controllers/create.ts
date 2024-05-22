@@ -18,21 +18,19 @@ const create = async (req: Request, res: Response) => {
       res.status(404).json({ error });
     }
 
+    if (isvalidated.success) {
+      // Called CreateProduct service and pass required data for Create Product
+      const createdProduct = await productService.createProduct(
+        isvalidated.data,
+      );
 
-if(isvalidated.success){
- // Called CreateProduct service and pass required data for Create Product
- const createdProduct = await productService.createProduct(isvalidated.data);
-
-    // Send the response
-    res.status(201).json({
-     status: '201',
-     messege: 'Product Created Successfully',
-     data: createdProduct,
-   });
-}
-   
-
- 
+      // Send the response
+      res.status(201).json({
+        status: '201',
+        messege: 'Product Created Successfully',
+        data: createdProduct,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       status: '500',
