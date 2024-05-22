@@ -1,5 +1,3 @@
-import controllers from './controllers'
+import controllers from './controllers';
 
-
-
-export default controllers
+export default controllers;

@@ -1,4 +1,3 @@
-import create from "./create";
+import create from './create';
 
-
-export = {create}
+export = { create };
