@@ -15,7 +15,7 @@ const getAllProducts = async (_req: Request, res: Response) => {
     res.status(500).json({
       status: '500',
       code: 'Internal server error',
-      messege: 'Oops something wrong in our side',
+      messege: 'An unexpected error occurred.',
     });
   }
 };

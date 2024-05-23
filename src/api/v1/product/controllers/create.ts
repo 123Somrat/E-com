@@ -34,8 +34,8 @@ const create = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: '500',
-      code: 'Server error',
-      error: 'Oops sonething wrong on our side',
+      code: 'Internal Server Error',
+      error: 'An unexpected error occurred.',
     });
   }
 };
