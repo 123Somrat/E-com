@@ -4,8 +4,9 @@ import Product from '../../model/product/productType';
 import HttpError from '../../utils/customError';
 
 /**
- * Create a product
+ 
  * @param data
+ * Create a product  
  * @returns Created Product
  */
 const createProduct = async (data: Product) => {
@@ -15,8 +16,9 @@ const createProduct = async (data: Product) => {
 };
 
 /**
- * get all products
+
  * @param param0
+  * get all products
  * @returns allProducts
  */
 const getProduct = async () => {
@@ -25,8 +27,9 @@ const getProduct = async () => {
 };
 
 /**
- * get single product
+ 
  * @param id
+ * Depends on @id retrun a product if it is exeist or throw error
  * @returns singleProduct
  */
 const getSingleProduct = async (id: string) => {
@@ -45,4 +48,34 @@ const getSingleProduct = async (id: string) => {
   return singleProduct;
 };
 
-export = { createProduct, getProduct, getSingleProduct };
+/**
+ * 
+ * @param id 
+ * Cheeking @id is valid or not
+ * Checking given @id data is exeist or not in DB
+ * @returns succes
+ */
+
+
+
+const deleteProduct = async(id:string)=>{
+// Checking id is valid or not
+  if (id.length < 12 || id.length > 12 || id === '') {
+    throw new HttpError('Product not found', 404, 'Not Found');
+  }
+
+  // Checking is product exeist or not
+  const isProductExeist = await ProductModel.findOne({_id:new ObjectId(id)})
+   if(!isProductExeist){ 
+    throw new HttpError('Product not found', 404, 'Not Found') 
+   }
+
+   // Deleted the product 
+   const deletedProduct = await ProductModel.deleteOne({_id:new ObjectId(id)})
+    return deletedProduct
+
+}
+
+
+
+export = { createProduct, getProduct, getSingleProduct , deleteProduct};
