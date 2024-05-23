@@ -7,8 +7,5 @@ router
   .get(controllers.getAllProducts)
   .post(controllers.create);
 
-
-router
-.route('/api/v1/products/:id')
-.get(controllers.getSingleProduct)
+router.route('/api/v1/products/:id').get(controllers.getSingleProduct);
 export default router;

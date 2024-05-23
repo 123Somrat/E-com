@@ -6,12 +6,12 @@ const VarientSchema = new Schema({
   type: {
     type: String,
     required: true,
-     _id: false 
+    _id: false,
   },
   value: {
     type: String,
     required: true,
-    _id:false
+    _id: false,
   },
 });
 // Define InventorySchema

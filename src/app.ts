@@ -13,17 +13,12 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
-
-app.use((err: HttpError, req:Request, res:Response) => {
+app.use((err: HttpError, req: Request, res: Response) => {
   res.status(err.status || 500).json({
-      status: err.status || '500',
-      code: err.code || 'Internal Server Error',
-      message: err.message,
+    status: err.status || '500',
+    code: err.code || 'Internal Server Error',
+    message: err.message,
   });
 });
-
-
-
-
 
 export default app;
