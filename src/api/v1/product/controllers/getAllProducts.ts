@@ -1,6 +1,10 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import productService from '../../../../lib/product';
-const getAllProducts = async (_req: Request, res: Response) => {
+const getAllProducts = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     // Call the getproduct service
     const products = await productService.getProduct();
@@ -12,11 +16,7 @@ const getAllProducts = async (_req: Request, res: Response) => {
       data: products,
     });
   } catch (error) {
-    res.status(500).json({
-      status: '500',
-      code: 'Internal server error',
-      messege: 'An unexpected error occurred.',
-    });
+    next(error);
   }
 };
 

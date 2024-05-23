@@ -34,7 +34,7 @@ const getSingleProduct = async (id: string) => {
     throw new Error('id is required');
   }
   // throwing error if id is empty or not exeist
-  if (id.length < 12 || id === '') {
+  if (id.length < 12 || id.length > 12 || id === '') {
     throw new HttpError('Product not found', 404, 'Not Found');
   }
 

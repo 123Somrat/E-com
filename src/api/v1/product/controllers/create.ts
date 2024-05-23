@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import productService from '../../../../lib/product';
 import ProductValidationSchema from '../../../../model/product/productSchemaValidation';
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response, next: NextFunction) => {
   const { product: productInfo } = req.body;
 
   try {
@@ -32,11 +32,7 @@ const create = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    res.status(500).json({
-      status: '500',
-      code: 'Internal Server Error',
-      error: 'An unexpected error occurred.',
-    });
+    next(error);
   }
 };
 

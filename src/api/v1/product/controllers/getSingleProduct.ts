@@ -1,8 +1,11 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import prductService from '../../../../lib/product';
-import HttpError from '../../../../utils/customError';
 
-const getSingleProduct = async (req: Request, res: Response) => {
+const getSingleProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const query = req.params.id;
 
@@ -16,21 +19,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
       data: singleProduct,
     });
   } catch (error) {
-    if (error instanceof HttpError && error.status === 404) {
-      // If product not found then send not found error
-      res.status(404).json({
-        status: '404',
-        code: error.code,
-        message: error.message,
-      });
-    } else {
-      // For other errors, send internal server error
-      res.status(500).json({
-        status: '500',
-        code: 'Internal Server Error',
-        message: 'An unexpected error occurred.',
-      });
-    }
+    next(error);
   }
 };
 
