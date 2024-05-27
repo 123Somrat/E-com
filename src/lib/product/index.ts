@@ -49,33 +49,56 @@ const getSingleProduct = async (id: string) => {
 };
 
 /**
- * 
- * @param id 
+ *
+ * @param id
  * Cheeking @id is valid or not
  * Checking given @id data is exeist or not in DB
  * @returns succes
  */
-
-
-
-const deleteProduct = async(id:string)=>{
-// Checking id is valid or not
+const deleteProduct = async (id: string) => {
+  // Checking id is valid or not
   if (id.length < 12 || id.length > 12 || id === '') {
     throw new HttpError('Product not found', 404, 'Not Found');
   }
 
   // Checking is product exeist or not
-  const isProductExeist = await ProductModel.findOne({_id:new ObjectId(id)})
-   if(!isProductExeist){ 
-    throw new HttpError('Product not found', 404, 'Not Found') 
-   }
+  const isProductExeist = await ProductModel.findOne({ _id: new ObjectId(id) });
+  if (!isProductExeist) {
+    throw new HttpError('Product not found', 404, 'Not Found');
+  }
 
-   // Deleted the product 
-   const deletedProduct = await ProductModel.deleteOne({_id:new ObjectId(id)})
-    return deletedProduct
+  // Deleted the product
+  const deletedProduct = await ProductModel.deleteOne({
+    _id: new ObjectId(id),
+  });
+  return deletedProduct;
+};
 
-}
+/**
+ *
+ * @param id
+ * @param body
+ * @returns updatedProduct
+ */
+const editSingleProduct = (id: string, body: {}) => {
+  const checkingProductExiestOrNot = ProductModel.findOne({
+    _id: new ObjectId(id),
+  });
 
+  if (!checkingProductExiestOrNot) {
+    throw new HttpError('Product not found', 404, 'Not Found');
+  }
 
+  const updatedProduct = ProductModel.findByIdAndUpdate(id, body, {
+    upsert: false,
+  });
+  return updatedProduct;
+};
 
-export = { createProduct, getProduct, getSingleProduct , deleteProduct};
+export = {
+  createProduct,
+  getProduct,
+  getSingleProduct,
+  deleteProduct,
+  editSingleProduct,
+};
