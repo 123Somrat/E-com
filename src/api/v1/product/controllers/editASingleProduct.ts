@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import {  Request, Response } from 'express';
 import productService from '../../../../lib/product';
+import asyncHandelar from '../../../../utils/asyncHandler';
 
-const asyncHandelar = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((error) => next(error));
-  };
-};
 
-const editASingleProduct = asyncHandelar(async (req, res) => {
+
+const editASingleProduct = asyncHandelar(async (req:Request, res:Response) => {
   const productId = req.params.id;
   const updatedDate = req.body;
 
