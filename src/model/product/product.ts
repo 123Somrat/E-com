@@ -6,14 +6,15 @@ const VarientSchema = new Schema({
   type: {
     type: String,
     required: true,
-    _id: false,
+ 
   },
   value: {
     type: String,
     required: true,
-    _id: false,
+  
   },
-});
+  
+},{_id:false});
 // Define InventorySchema
 const InventorySchema = new Schema({
   quantity: {
@@ -24,7 +25,7 @@ const InventorySchema = new Schema({
     type: Boolean,
     required: [true, 'Instock is required'],
   },
-});
+},{_id:false});
 
 //Define Product Schema
 const Product = new Schema<Product>({
