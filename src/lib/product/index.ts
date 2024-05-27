@@ -80,8 +80,8 @@ const deleteProduct = async (id: string) => {
  * @param body
  * @returns updatedProduct
  */
-const editSingleProduct = (id: string, body: Product) => {
-  const checkingProductExiestOrNot = ProductModel.findOne({
+const editSingleProduct = async (id: string, body: Product) => {
+  const checkingProductExiestOrNot = await ProductModel.findOne({
     _id: new ObjectId(id),
   });
 
@@ -89,9 +89,14 @@ const editSingleProduct = (id: string, body: Product) => {
     throw new HttpError('Product not found', 404, 'Not Found');
   }
 
-  const updatedProduct = ProductModel.findByIdAndUpdate(id, body, {
-    upsert: false,
-  });
+  const updatedProduct = await ProductModel.findByIdAndUpdate(
+    { _id: new ObjectId(id) },
+    body,
+    {
+      upsert: false,
+    },
+  );
+
   return updatedProduct;
 };
 

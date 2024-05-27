@@ -7,7 +7,8 @@ import asyncHandelar from '../../../../utils/asyncHandler';
 
 const editASingleProduct = asyncHandelar(async (req:Request, res:Response) => {
   const productId = req.params.id;
-  const updatedDate = req.body;
+  const updatedDate = req.body.product;
+
 
   // Call product update service
   const updatedProduct = await productService.editSingleProduct(
