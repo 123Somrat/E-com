@@ -57,7 +57,7 @@ const getSingleProduct = async (id: string) => {
  */
 const deleteProduct = async (id: string) => {
   // Checking id is valid or not
-  if (id.length < 12 || id.length > 12 || id === '') {
+  if (id.length < 12 || id.length > 24 || id === '') {
     throw new HttpError('Product not found', 404, 'Not Found');
   }
 
