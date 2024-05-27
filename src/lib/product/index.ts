@@ -80,7 +80,7 @@ const deleteProduct = async (id: string) => {
  * @param body
  * @returns updatedProduct
  */
-const editSingleProduct = (id: string, body: {}) => {
+const editSingleProduct = (id: string, body: Product) => {
   const checkingProductExiestOrNot = ProductModel.findOne({
     _id: new ObjectId(id),
   });

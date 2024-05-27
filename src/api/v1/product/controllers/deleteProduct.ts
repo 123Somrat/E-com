@@ -1,4 +1,4 @@
-import { Request,  Response } from 'express';
+import { Request, Response } from 'express';
 import productService from '../../../../lib/product';
 import asyncHandelar from '../../../../utils/asyncHandler';
 
