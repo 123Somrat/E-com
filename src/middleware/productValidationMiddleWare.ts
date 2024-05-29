@@ -7,7 +7,6 @@ const productValidationMiddleWare = (
   next: NextFunction,
 ) => {
   try {
-   
     const isvalidated = ProductValidationSchema.safeParse(req.body.product);
 
     if (!isvalidated.success) {
@@ -19,10 +18,9 @@ const productValidationMiddleWare = (
       });
       res.status(404).json({ error });
     }
-
-
-    next()
+    next();
   } catch (error) {
+    
     next(error);
   }
 };

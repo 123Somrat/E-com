@@ -13,6 +13,6 @@ router
   .route('/api/v1/products/:id')
   .get(controllers.getSingleProduct)
   .delete(controllers.deleteProduct)
-  .patch(controllers.editASingleProduct);
+  .patch(productValidationMiddleWare,controllers.editASingleProduct);
 
 export default router;
