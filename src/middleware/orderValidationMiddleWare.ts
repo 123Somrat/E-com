@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import ProductValidationSchema from '../model/product/productSchemaValidation';
+import orderValidationSchema from '../model/order/orderSchemaValidation';
 
-const productValidationMiddleWare = (
+const orderValidationMiddleWare = (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const isvalidated = ProductValidationSchema.safeParse(req.body.product);
+    const isvalidated = orderValidationSchema.safeParse(req.body);
 
     if (!isvalidated.success) {
       const error = isvalidated.error?.errors.map((error) => {
@@ -18,10 +18,10 @@ const productValidationMiddleWare = (
       });
       return res.status(400).json({ error });
     }
+
     next();
   } catch (error) {
     next(error);
   }
 };
-
-export default productValidationMiddleWare;
+export default orderValidationMiddleWare;

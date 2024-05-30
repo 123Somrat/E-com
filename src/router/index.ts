@@ -2,6 +2,7 @@ import express from 'express';
 import { controllers as productController } from '../api/v1/product';
 import { controllers as orderControllers } from '../api/v1/orders';
 import productValidationMiddleWare from '../middleware/productValidationMiddleWare';
+import orderValidationMiddleWare from '../middleware/orderValidationMiddleWare';
 
 const router = express.Router();
 
@@ -25,6 +26,8 @@ router
   .delete(productController.deleteProduct)
   .patch(productValidationMiddleWare, productController.editASingleProduct);
 
-router.route('/api/v1/orders').post(orderControllers.createOrder);
+router
+  .route('/api/v1/orders')
+  .post(orderValidationMiddleWare, orderControllers.createOrder);
 
 export default router;

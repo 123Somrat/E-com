@@ -3,9 +3,8 @@ import asyncHandelar from '../../../../utils/asyncHandler';
 import orderService from '../../../../lib/order';
 
 const createOrder = asyncHandelar(async (req: Request, res: Response) => {
+  // Getting order info from request body
   const orderInfo = req.body;
-
-  // TODO : validate orders data;
 
   // Call orderCreate service
   const order = await orderService.createOrder(orderInfo);
