@@ -20,7 +20,6 @@ const productValidationMiddleWare = (
     }
     next();
   } catch (error) {
-    
     next(error);
   }
 };

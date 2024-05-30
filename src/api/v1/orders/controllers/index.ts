@@ -1,4 +1,3 @@
-import createOrder from "./createOrder";;
+import createOrder from './createOrder';
 
-
-export = {createOrder}
+export = { createOrder };

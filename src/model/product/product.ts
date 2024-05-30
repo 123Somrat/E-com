@@ -2,30 +2,33 @@ import { Schema, model } from 'mongoose';
 import Product from './productType';
 
 // Define VarientSchema
-const VarientSchema = new Schema({
-  type: {
-    type: String,
-    required: true,
- 
+const VarientSchema = new Schema(
+  {
+    type: {
+      type: String,
+      required: true,
+    },
+    value: {
+      type: String,
+      required: true,
+    },
   },
-  value: {
-    type: String,
-    required: true,
-  
-  },
-  
-},{_id:false});
+  { _id: false },
+);
 // Define InventorySchema
-const InventorySchema = new Schema({
-  quantity: {
-    type: Number,
-    required: [true, 'Quantity is required'],
+const InventorySchema = new Schema(
+  {
+    quantity: {
+      type: Number,
+      required: [true, 'Quantity is required'],
+    },
+    inStock: {
+      type: Boolean,
+      required: [true, 'Instock is required'],
+    },
   },
-  inStock: {
-    type: Boolean,
-    required: [true, 'Instock is required'],
-  },
-},{_id:false});
+  { _id: false },
+);
 
 //Define Product Schema
 const Product = new Schema<Product>({

@@ -22,25 +22,19 @@ const createProduct = async (data: Product) => {
  * @returns allProducts
  */
 
-const getProduct = async (query:string) => {
-
+const getProduct = async (query: string) => {
   let allProducts;
-   const filter = {
+  const filter = {
     name: { $regex: query, $options: 'i' },
   };
 
-  
-
- if(query){
-     allProducts = await ProductModel.find(filter);
-   }else{
+  if (query) {
+    allProducts = await ProductModel.find(filter);
+  } else {
     allProducts = await ProductModel.find();
-   }
-  
+  }
+
   //const  allProducts = await ProductModel.find(filter)
-  
-  
- 
 
   return allProducts;
 };
