@@ -64,6 +64,6 @@ const Product = new Schema<Product>({
   },
 });
 
-const ProductModel = model('Product', Product);
+const ProductModel = model<Product>('Product', Product);
 
 export default ProductModel;
