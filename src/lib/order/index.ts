@@ -1,8 +1,8 @@
-import { ObjectId } from 'mongodb';
 import { Order } from '../../model/order';
 import orderType from '../../model/order/orderType';
 import { ProductModel } from '../../model/product';
-import HttpError from '../../utils/customError';
+import mongoose from 'mongoose';
+import checkingProductAndQuantityAndStock from './utils';
 
 /**
  *
@@ -11,15 +11,27 @@ import HttpError from '../../utils/customError';
  */
 const createOrder = async (data: orderType) => {
   const { productId } = data;
-  // Get the product details from product
 
-  const product = await ProductModel.findOne({ _id: new ObjectId(productId) });
+  // Start a session
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  if ((product?.inventory.quantity as number) < data.quantity) {
-    throw new HttpError('Opps product out of stock', 400, 's');
-  }
+  const { product, validatedData } =
+    await checkingProductAndQuantityAndStock(data);
 
-  const order = await Order.create(data);
+  // Store the order document in db
+  const order = await Order.create(validatedData);
+
+  // update the product
+  const updatedProductQuantity = await ProductModel.findByIdAndUpdate(
+    { _id: productId },
+    product,
+    { upsert: false },
+  );
+  console.log(updatedProductQuantity);
+  // End session after commit a succesfull transection
+  await session.commitTransaction();
+  session.endSession();
   return order;
 };
 
