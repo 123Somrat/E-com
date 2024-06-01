@@ -16,6 +16,7 @@ const createOrder = async (data: orderType) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
+  // Utility function to check product availability and update product details
   const { product, validatedData } =
     await checkingProductAndQuantityAndStock(data);
 
