@@ -10,13 +10,13 @@ const productValidationMiddleWare = (
     const isvalidated = ProductValidationSchema.safeParse(req.body.product);
 
     if (!isvalidated.success) {
-      const error = isvalidated.error?.errors.map((error) => {
+      const errors= isvalidated.error?.errors.map((error) => {
         return {
           path: error.path[error.path.length-1],
           message: error.message,
         };
       });
-      return res.status(400).json({ error });
+      return res.status(400).json({staus:400,code:'Bad request', errors});
     }
     next();
   } catch (error) {
