@@ -11,8 +11,6 @@ const getAllProducts = asyncHandelar(async (req: Request, res: Response) => {
   const sortBy = (req.query.sortBy as string) || 'price';
   const sortType = (req.query.sortType as string) || 'dsc';
 
-
-
   // Call getAll Product service
   const products = await productService.getProduct({
     page,
@@ -22,19 +20,28 @@ const getAllProducts = asyncHandelar(async (req: Request, res: Response) => {
     sortType,
   });
 
-   // Calculated document depends on search
+  // Calculated document depends on search
   const totalItems = await productService.count({ searchBy });
   // Pagination
   const pagination = query.getPagination({ page, limit, totalItems });
 
-
+  // GenerateHateOsLinks
+  const links = query.generateHateOsLinks({
+    url: req.url,
+    path: req.path,
+    query: req.query,
+    hasNext: !!pagination.next,
+    hasPrev: !!pagination.prev,
+    page,
+  });
 
   // Send the response
   res.status(200).json({
     status: '200',
     code: 'Ok',
     data: products,
-    pagination:pagination
+    pagination: pagination,
+    hateOsLinks: links,
   });
 });
 
