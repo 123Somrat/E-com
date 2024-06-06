@@ -15,28 +15,65 @@ const createProduct = async (data: Product) => {
   return product;
 };
 
-/**
+type QueruType = {
+  page: number;
+  limit: number;
+  searchBy: string;
+  sortBy: string;
+  sortType: string;
+};
 
- * @param param0
-  * get all products
- * @returns allProducts
+/**
+ * Find all articles
+ * Pagination
+ * Searching
+ * Sorting
+ * @param{*} param0
+ * @returns
  */
 
-const getProduct = async (query: string) => {
+const getProduct = async ({
+  page,
+  limit,
+  searchBy,
+  sortBy,
+  sortType,
+}: QueruType) => {
   let allProducts;
+
+  // filter
   const filter = {
-    name: { $regex: query, $options: 'i' },
+    name: { $regex: searchBy, $options: 'i' },
   };
 
-  if (query) {
-    allProducts = await ProductModel.find(filter);
+  // sort
+  const sortStr = `${sortType === 'dsc' ? '-' : ''}${sortBy}`;
+
+  if (searchBy) {
+    allProducts = await ProductModel.find(filter)
+      .sort(sortStr)
+      .skip(page * limit - limit)
+      .limit(limit);
   } else {
-    allProducts = await ProductModel.find();
+    allProducts = await ProductModel.find()
+      .sort(sortStr)
+      .skip(page * limit - limit)
+      .limit(limit);
   }
 
-  //const  allProducts = await ProductModel.find(filter)
-
   return allProducts;
+};
+
+/**
+ * Count all product
+ * @param param0
+ * @returns
+ */
+const count = async ({ searchBy = '' }) => {
+  const filter = {
+    name: { $regex: searchBy, $options: 'i' },
+  };
+  return ProductModel.countDocuments(filter);
 };
 
 /**
@@ -119,4 +156,5 @@ export = {
   getSingleProduct,
   deleteProduct,
   editSingleProduct,
+  count,
 };
