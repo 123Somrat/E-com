@@ -28,6 +28,7 @@ router
 
 router
   .route('/api/v1/orders')
+  .get(orderControllers.getAllOrders)
   .post(orderValidationMiddleWare, orderControllers.createOrder);
 
 export default router;

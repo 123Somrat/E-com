@@ -29,13 +29,31 @@ const createOrder = async (data: orderType) => {
     product,
     { upsert: false },
   );
-  console.log(updatedProductQuantity);
+ 
   // End session after commit a succesfull transection
   await session.commitTransaction();
   session.endSession();
   return order;
 };
 
+/**
+ * 
+ * @returns 
+ */
+const getAllOrders =async ()=>{
+     // Retrive all orders from db
+    const orders = await Order.find({});
+    
+    // return orders
+  return orders
+
+}
+
+
+
+
+
 export = {
   createOrder,
+  getAllOrders
 };
