@@ -12,7 +12,7 @@ const orderValidationMiddleWare = (
     if (!isvalidated.success) {
       const error = isvalidated.error?.errors.map((error) => {
         return {
-          path: error.path,
+          path: error.path[error.path.length - 1],
           message: error.message,
         };
       });
