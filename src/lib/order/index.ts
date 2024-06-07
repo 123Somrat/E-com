@@ -29,7 +29,7 @@ const createOrder = async (data: orderType) => {
     product,
     { upsert: false },
   );
- 
+
   // End session after commit a succesfull transection
   await session.commitTransaction();
   session.endSession();
@@ -37,23 +37,28 @@ const createOrder = async (data: orderType) => {
 };
 
 /**
- * 
- * @returns 
+ *
+ * @returns
  */
-const getAllOrders =async ()=>{
-     // Retrive all orders from db
-    const orders = await Order.find({});
-    
-    // return orders
-  return orders
+const getAllOrders = async ({ email }: { email: string }) => {
+  // filter with query params
+  const filter = {
+    email: { $regex: email, $options: 'i' },
+  };
 
-}
+  let orders;
+  // Retrive all orders from db
+  if (email) {
+    orders = await Order.find(filter);
+  } else {
+    orders = await Order.find({});
+  }
 
-
-
-
+  // return orders
+  return orders;
+};
 
 export = {
   createOrder,
-  getAllOrders
+  getAllOrders,
 };
