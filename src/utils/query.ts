@@ -61,7 +61,7 @@ const generateHateOsLinks = ({
     links.next = `${path}?${queryStr}`;
   }
   if (hasPrev) {
-    const queryStr = generateQueryString({ ...query, page: page - 1 });
+    const queryStr = generateQueryString({ ...query });
     links.prev = `${path}?${queryStr}`;
   }
 
